@@ -1,573 +1,584 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <title>NOVA — Independent Technology Research Initiative</title>  
-  <style>  
-    * {  
-      margin: 0;  
-      padding: 0;  
-      box-sizing: border-box;  
-    }  html {  
-  scroll-behavior: smooth;  
-}  
-
-body {  
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;  
-  background-color: #f2f2f0;  
-  color: #4a4a4a;  
-  line-height: 1.6;  
-  letter-spacing: 0.3px;  
-  overflow-x: hidden;  
-}  
-
-/* Subtle grain texture overlay */  
-body::before {  
-  content: '';  
-  position: fixed;  
-  top: 0;  
-  left: 0;  
-  width: 100%;  
-  height: 100%;  
-  background-image:   
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="1" /></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.02" /></svg>');  
-  pointer-events: none;  
-  z-index: 1;  
-  mix-blend-mode: overlay;  
-}  
-
-/* Content positioning above texture */  
-main, header, nav {  
-  position: relative;  
-  z-index: 2;  
-}  
-
-/* Navigation */  
-nav {  
-  position: fixed;  
-  top: 0;  
-  width: 100%;  
-  padding: 2rem 3rem;  
-  background: rgba(242, 242, 240, 0.95);  
-  backdrop-filter: blur(10px);  
-  display: flex;  
-  justify-content: space-between;  
-  align-items: center;  
-  z-index: 100;  
-  border-bottom: 1px solid rgba(74, 74, 74, 0.05);  
-}  
-
-.nav-logo {  
-  font-size: 0.85rem;  
-  font-weight: 600;  
-  letter-spacing: 2px;  
-  text-transform: uppercase;  
-  color: #4a4a4a;  
-}  
-
-.nav-links {  
-  display: flex;  
-  gap: 2.5rem;  
-  list-style: none;  
-}  
-
-.nav-links a {  
-  font-size: 0.75rem;  
-  text-transform: uppercase;  
-  letter-spacing: 1.5px;  
-  color: #4a4a4a;  
-  text-decoration: none;  
-  transition: opacity 0.3s ease;  
-  opacity: 0.7;  
-}  
-
-.nav-links a:hover {  
-  opacity: 1;  
-}  
-
-@media (max-width: 768px) {  
-  nav {  
-    padding: 1.5rem 1.5rem;  
-    flex-direction: column;  
-    gap: 1.5rem;  
-  }  
-
-  .nav-links {  
-    gap: 1.5rem;  
-    justify-content: center;  
-  }  
-}  
-
-/* Hero Section */  
-.hero {  
-  min-height: 100vh;  
-  display: flex;  
-  flex-direction: column;  
-  justify-content: center;  
-  align-items: center;  
-  padding: 8rem 3rem 3rem;  
-  text-align: center;  
-  animation: fadeIn 1.2s ease-out;  
-}  
-
-.phase-label {  
-  font-size: 0.7rem;  
-  text-transform: uppercase;  
-  letter-spacing: 2px;  
-  color: #6f8fa3;  
-  margin-bottom: 3rem;  
-  opacity: 0.8;  
-  animation: slideUp 0.8s ease-out 0.2s both;  
-}  
-
-.hero-title {  
-  font-size: 5rem;  
-  font-weight: 300;  
-  letter-spacing: 8px;  
-  margin-bottom: 1.5rem;  
-  color: #4a4a4a;  
-  animation: slideUp 0.8s ease-out 0.4s both;  
-  text-transform: uppercase;  
-}  
-
-.hero-subtitle {  
-  font-size: 1rem;  
-  color: #6f8fa3;  
-  margin-bottom: 1rem;  
-  font-weight: 400;  
-  animation: slideUp 0.8s ease-out 0.6s both;  
-  letter-spacing: 0.5px;  
-}  
-
-.hero-description {  
-  font-size: 0.9rem;  
-  max-width: 500px;  
-  margin-bottom: 2rem;  
-  line-height: 1.8;  
-  color: #5a5a5a;  
-  animation: slideUp 0.8s ease-out 0.8s both;  
-}  
-
-.hero-tags {  
-  font-size: 0.7rem;  
-  text-transform: uppercase;  
-  letter-spacing: 1.5px;  
-  color: #7a7a7a;  
-  animation: slideUp 0.8s ease-out 1s both;  
-  opacity: 0.7;  
-}  
-
-@media (max-width: 768px) {  
-  .hero {  
-    padding: 6rem 1.5rem 2rem;  
-    min-height: auto;  
-  }  
-
-  .hero-title {  
-    font-size: 2.5rem;  
-    letter-spacing: 4px;  
-  }  
-
-  .hero-subtitle {  
-    font-size: 0.9rem;  
-  }  
-
-  .hero-description {  
-    font-size: 0.85rem;  
-  }  
-}  
-
-/* Animations */  
-@keyframes fadeIn {  
-  from {  
-    opacity: 0;  
-  }  
-  to {  
-    opacity: 1;  
-  }  
-}  
-
-@keyframes slideUp {  
-  from {  
-    opacity: 0;  
-    transform: translateY(20px);  
-  }  
-  to {  
-    opacity: 1;  
-    transform: translateY(0);  
-  }  
-}  
-
-/* Section styling */  
-section {  
-  padding: 5rem 3rem;  
-  max-width: 900px;  
-  margin: 0 auto;  
-}  
-
-section h2 {  
-  font-size: 2.5rem;  
-  font-weight: 300;  
-  letter-spacing: 3px;  
-  text-transform: uppercase;  
-  margin-bottom: 2.5rem;  
-  color: #4a4a4a;  
-}  
-
-/* About Section */  
-#about {  
-  border-top: 1px solid rgba(74, 74, 74, 0.1);  
-}  
-
-.about-content {  
-  font-size: 0.95rem;  
-  line-height: 1.8;  
-  color: #555;  
-}  
-
-.about-content p {  
-  margin-bottom: 1.5rem;  
-}  
-
-.highlight-box {  
-  background: rgba(111, 143, 163, 0.04);  
-  padding: 1.5rem;  
-  border-left: 2px solid rgba(111, 143, 163, 0.3);  
-  margin: 2rem 0;  
-  font-size: 0.9rem;  
-  line-height: 1.7;  
-}  
-
-/* Research Focus Section */  
-#research {  
-  border-top: 1px solid rgba(74, 74, 74, 0.1);  
-}  
-
-.research-grid {  
-  display: grid;  
-  grid-template-columns: 1fr;  
-  gap: 2.5rem;  
-  margin-top: 2rem;  
-}  
-
-.research-item {  
-  padding: 2rem 0;  
-  border-bottom: 1px solid rgba(74, 74, 74, 0.05);  
-}  
-
-.research-item:last-child {  
-  border-bottom: none;  
-}  
-
-.research-item h3 {  
-  font-size: 1.2rem;  
-  font-weight: 500;  
-  letter-spacing: 1.5px;  
-  text-transform: uppercase;  
-  color: #4a4a4a;  
-  margin-bottom: 1rem;  
-}  
-
-.research-item p {  
-  font-size: 0.9rem;  
-  line-height: 1.8;  
-  color: #5a5a5a;  
-}  
-
-/* Contact Section */  
-#contact {  
-  border-top: 1px solid rgba(74, 74, 74, 0.1);  
-}  
-
-.contact-wrapper {  
-  max-width: 500px;  
-}  
-
-.contact-info {  
-  margin: 2rem 0;  
-}  
-
-.contact-info p {  
-  font-size: 0.9rem;  
-  margin-bottom: 1rem;  
-  line-height: 1.8;  
-}  
-
-.contact-email {  
-  display: inline-block;  
-  font-size: 0.9rem;  
-  color: #6f8fa3;  
-  text-decoration: none;  
-  padding: 0.5rem 0;  
-  border-bottom: 1px solid rgba(111, 143, 163, 0.3);  
-  transition: all 0.3s ease;  
-}  
-
-.contact-email:hover {  
-  border-bottom-color: #6f8fa3;  
-}  
-
-.contact-form {  
-  margin-top: 2.5rem;  
-}  
-
-.form-group {  
-  margin-bottom: 1.5rem;  
-}  
-
-.form-group label {  
-  display: block;  
-  font-size: 0.8rem;  
-  text-transform: uppercase;  
-  letter-spacing: 1.5px;  
-  margin-bottom: 0.5rem;  
-  color: #4a4a4a;  
-}  
-
-.form-group input,  
-.form-group textarea {  
-  width: 100%;  
-  padding: 0.8rem 1rem;  
-  background: rgba(74, 74, 74, 0.02);  
-  border: 1px solid rgba(74, 74, 74, 0.1);  
-  font-family: inherit;  
-  font-size: 0.9rem;  
-  color: #4a4a4a;  
-  transition: all 0.3s ease;  
-}  
-
-.form-group input:focus,  
-.form-group textarea:focus {  
-  outline: none;  
-  border-color: #6f8fa3;  
-  background: rgba(111, 143, 163, 0.04);  
-}  
-
-.form-group textarea {  
-  resize: vertical;  
-  min-height: 120px;  
-}  
-
-.form-submit {  
-  padding: 0.8rem 2rem;  
-  background: transparent;  
-  border: 1px solid #6f8fa3;  
-  color: #6f8fa3;  
-  font-size: 0.8rem;  
-  text-transform: uppercase;  
-  letter-spacing: 1.5px;  
-  cursor: pointer;  
-  transition: all 0.3s ease;  
-}  
-
-.form-submit:hover {  
-  background: rgba(111, 143, 163, 0.1);  
-}  
-
-.disclaimer {  
-  margin-top: 2rem;  
-  padding: 1rem;  
-  background: rgba(111, 143, 163, 0.03);  
-  border-left: 2px solid rgba(111, 143, 163, 0.2);  
-  font-size: 0.75rem;  
-  line-height: 1.6;  
-  color: #6a6a6a;  
-}  
-
-/* Footer */  
-footer {  
-  padding: 3rem;  
-  text-align: center;  
-  border-top: 1px solid rgba(74, 74, 74, 0.1);  
-  font-size: 0.75rem;  
-  color: #7a7a7a;  
-  letter-spacing: 1px;  
-  text-transform: uppercase;  
-}  
-
-@media (max-width: 768px) {  
-  section {  
-    padding: 3rem 1.5rem;  
-  }  
-
-  section h2 {  
-    font-size: 1.8rem;  
-    letter-spacing: 2px;  
-  }  
-
-  .research-grid {  
-    gap: 2rem;  
-  }  
-
-  .research-item h3 {  
-    font-size: 1rem;  
-  }  
-}  
-
-/* Scroll reveal animation */  
-.reveal {  
-  opacity: 0;  
-  transform: translateY(20px);  
-  transition: opacity 0.6s ease, transform 0.6s ease;  
-}  
-
-.reveal.active {  
-  opacity: 1;  
-  transform: translateY(0);  
-}
-
-  </style>  
-</head>  
-<body>  
-  <!-- Navigation -->  
-  <nav>  
-    <div class="nav-logo">NOVA</div>  
-    <ul class="nav-links">  
-      <li><a href="#about">About</a></li>  
-      <li><a href="#research">Research</a></li>  
-      <li><a href="#contact">Contact</a></li>  
-    </ul>  
-  </nav>    <main>  
-    <!-- Hero Section -->  
-    <section class="hero">  
-      <div class="phase-label">Current Phase: Foundation</div>  
-      <h1 class="hero-title">NOVA</h1>  
-      <p class="hero-subtitle">An independent technology research initiative</p>  
-      <p class="hero-description">Focused on long-term thinking, transparency, and purposeful technology. Exploring the intersection of artificial intelligence, systems design, and transformative research.</p>  
-      <p class="hero-tags">Independent · Research-First · Early-Stage</p>  
-    </section>  <!-- About Section -->  
-<section id="about">  
-  <h2>About</h2>  
-  <div class="about-content">  
-    <p>NOVA is an independent, early-stage research initiative—not yet a registered legal entity. We are a small team with a long-term vision, operating with transparency about our current status and future intent.</p>  
-
-    <div class="highlight-box">  
-      <strong>Legal Status:</strong> This initiative is currently operating as an independent research project. We are not yet incorporated as a legal entity and do not currently offer commercial services or products.  
-    </div>  
-
-    <p>Our focus is on foundational thinking around technology, systems design, and artificial intelligence. We believe in slow, careful research that prioritizes clarity and intellectual integrity over rapid scaling or market claims.</p>  
-
-    <p>We operate with a non-profit mindset—our goal is to contribute meaningfully to human knowledge and capability, not to extract value. We are transparent about our limitations, uncertainties, and current phase of development.</p>  
-
-    <p>If you are interested in collaborating, discussing research directions, or following our work, we would welcome conversation.</p>  
-  </div>  
-</section>  
-
-<!-- Research Focus Section -->  
-<section id="research">  
-  <h2>Research Focus</h2>  
-  <div class="research-grid">  
-    <div class="research-item">  
-      <h3>AI & Systems Research</h3>  
-      <p>We explore foundational questions about artificial intelligence, alignment, and systems behavior. Our approach emphasizes first-principles thinking, careful analysis of emergent behaviors, and long-term implications of technology development.</p>  
-    </div>  
-
-    <div class="research-item">  
-      <h3>Software & Infrastructure</h3>  
-      <p>We investigate how systems are built, how they scale, and how design decisions ripple through technical and social ecosystems. We focus on clarity, maintainability, and the relationship between code and consequence.</p>  
-    </div>  
-
-    <div class="research-item">  
-      <h3>Long-Term Technology Strategy</h3>  
-      <p>We think about what sustainable, responsible technology development looks like over decades. This includes questions of governance, safety, coordination, and how technology can support human flourishing rather than replace human agency.</p>  
-    </div>  
-  </div>  
-</section>  
-
-<!-- Contact Section -->  
-<section id="contact">  
-  <h2>Get In Touch</h2>  
-  <div class="contact-wrapper">  
-    <div class="contact-info">  
-      <p>We're interested in conversations with researchers, collaborators, and thoughtful people interested in these questions.</p>  
-      <p>Reach out:</p>  
-      <a href="mailto:help.nova.research@gmail.com" class="contact-email">hello@novaresearch.org</a>  
-    </div>  
-
-    <form class="contact-form" id="contactForm">  
-      <div class="form-group">  
-        <label for="name">Name</label>  
-        <input type="text" id="name" name="name" required>  
-      </div>  
-
-      <div class="form-group">  
-        <label for="email">Email</label>  
-        <input type="email" id="email" name="email" required>  
-      </div>  
-
-      <div class="form-group">  
-        <label for="message">Message</label>  
-        <textarea id="message" name="message" required></textarea>  
-      </div>  
-
-      <button type="submit" class="form-submit">Send Message</button>  
-    </form>  
-
-    <div class="disclaimer">  
-      <strong>Disclaimer:</strong> NOVA Research Corp is currently not a registered legal entity. This initiative operates as an independent research project. Any inquiries are responded to in that context.  
-    </div>  
-  </div>  
-</section>
-
-  </main>    <!-- Footer -->    <footer>  
-    <p>&copy; 2025 NOVA Research Initiative. All work published under careful consideration of impact and responsibility.</p>  
-  </footer>    <script>  
-    // Smooth scroll for navigation links  
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {  
-      anchor.addEventListener('click', function (e) {  
-        e.preventDefault();  
-        const target = document.querySelector(this.getAttribute('href'));  
-        if (target) {  
-          target.scrollIntoView({  
-            behavior: 'smooth',  
-            block: 'start'  
-          });  
-        }  
-      });  
-    });  
-  
-    // Scroll reveal animation  
-    function revealOnScroll() {  
-      const reveals = document.querySelectorAll('.reveal');  
-      reveals.forEach(element => {  
-        const windowHeight = window.innerHeight;  
-        const elementTop = element.getBoundingClientRect().top;  
-        const elementVisible = 150;  
-  
-        if (elementTop < windowHeight - elementVisible) {  
-          element.classList.add('active');  
-        }  
-      });  
-    }  
-  
-    window.addEventListener('scroll', revealOnScroll);  
-    revealOnScroll(); // Initial check  
-  
-    // Form submission handling  
-    const contactForm = document.getElementById('contactForm');  
-    if (contactForm) {  
-      contactForm.addEventListener('submit', function(e) {  
-        e.preventDefault();  
-          
-        const name = document.getElementById('name').value;  
-        const email = document.getElementById('email').value;  
-        const message = document.getElementById('message').value;  
-  
-        // Construct mailto link  
-        const subject = 'NOVA Research Inquiry';  
-        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;  
-        const mailtoLink = `mailto:help.nova.research@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;  
-          
-        window.location.href = mailtoLink;  
-      });  
-    }  
-  
-    // Add reveal class to sections for animation  
-    document.addEventListener('DOMContentLoaded', function() {  
-      const sections = document.querySelectorAll('section');  
-      sections.forEach(section => {  
-        section.classList.add('reveal');  
-      });  
-    });  
-  </script>  </body>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA — Independent Technology Research Initiative</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background-color: #f2f2f0;
+      color: #4a4a4a;
+      line-height: 1.6;
+      letter-spacing: 0.3px;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="1" /></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.02" /></svg>');
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: overlay;
+    }
+
+    /* Content positioning above texture */
+    main, header, nav {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 2rem 3rem;
+      background: rgba(242, 242, 240, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      border-bottom: 1px solid rgba(74, 74, 74, 0.05);
+    }
+
+    .nav-logo {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4a4a4a;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #4a4a4a;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1.5rem 1.5rem;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+        justify-content: center;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 8rem 3rem 3rem;
+      text-align: center;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    .phase-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #6f8fa3;
+      margin-bottom: 3rem;
+      opacity: 0.8;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-title {
+      font-size: 5rem;
+      font-weight: 300;
+      letter-spacing: 8px;
+      margin-bottom: 1.5rem;
+      color: #4a4a4a;
+      animation: slideUp 0.8s ease-out 0.4s both;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: #6f8fa3;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      animation: slideUp 0.8s ease-out 0.6s both;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-description {
+      font-size: 0.9rem;
+      max-width: 500px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      color: #5a5a5a;
+      animation: slideUp 0.8s ease-out 0.8s both;
+    }
+
+    .hero-tags {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #7a7a7a;
+      animation: slideUp 0.8s ease-out 1s both;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 6rem 1.5rem 2rem;
+        min-height: auto;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem;
+      }
+
+      .hero-description {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Section styling */
+    section {
+      padding: 5rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      color: #4a4a4a;
+    }
+
+    /* About Section */
+    #about {
+      border-top: 1px solid rgba(74, 74, 74, 0.1);
+    }
+
+    .about-content {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .about-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight-box {
+      background: rgba(111, 143, 163, 0.04);
+      padding: 1.5rem;
+      border-left: 2px solid rgba(111, 143, 163, 0.3);
+      margin: 2rem 0;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* Research Focus Section */
+    #research {
+      border-top: 1px solid rgba(74, 74, 74, 0.1);
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .research-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(74, 74, 74, 0.05);
+    }
+
+    .research-item:last-child {
+      border-bottom: none;
+    }
+
+    .research-item h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #4a4a4a;
+      margin-bottom: 1rem;
+    }
+
+    .research-item p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #5a5a5a;
+    }
+
+    /* Contact Section */
+    #contact {
+      border-top: 1px solid rgba(74, 74, 74, 0.1);
+    }
+
+    .contact-wrapper {
+      max-width: 500px;
+    }
+
+    .contact-info {
+      margin: 2rem 0;
+    }
+
+    .contact-info p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-size: 0.9rem;
+      color: #6f8fa3;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(111, 143, 163, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .contact-email:hover {
+      border-bottom-color: #6f8fa3;
+    }
+
+    .contact-form {
+      margin-top: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+      color: #4a4a4a;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(74, 74, 74, 0.02);
+      border: 1px solid rgba(74, 74, 74, 0.1);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #4a4a4a;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #6f8fa3;
+      background: rgba(111, 143, 163, 0.04);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      padding: 0.8rem 2rem;
+      background: transparent;
+      border: 1px solid #6f8fa3;
+      color: #6f8fa3;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-submit:hover {
+      background: rgba(111, 143, 163, 0.1);
+    }
+
+    .disclaimer {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(111, 143, 163, 0.03);
+      border-left: 2px solid rgba(111, 143, 163, 0.2);
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: #6a6a6a;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(74, 74, 74, 0.1);
+      font-size: 0.75rem;
+      color: #7a7a7a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      section h2 {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+      }
+
+      .research-grid {
+        gap: 2rem;
+      }
+
+      .research-item h3 {
+        font-size: 1rem;
+      }
+    }
+
+    /* Scroll reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">NOVA</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="phase-label">Current Phase: Foundation</div>
+      <h1 class="hero-title">NOVA</h1>
+      <p class="hero-subtitle">An independent technology research initiative</p>
+      <p class="hero-description">Focused on long-term thinking, transparency, and purposeful technology. Exploring the intersection of artificial intelligence, systems design, and transformative research.</p>
+      <p class="hero-tags">Independent · Research-First · Early-Stage</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>About</h2>
+      <div class="about-content">
+        <p>NOVA is an independent, early-stage research initiative—not yet a registered legal entity. We are a small team with a long-term vision, operating with transparency about our current status and future intent.</p>
+
+        <div class="highlight-box">
+          <strong>Legal Status:</strong> This initiative is currently operating as an independent research project. We are not yet incorporated as a legal entity and do not currently offer commercial services or products.
+        </div>
+
+        <p>Our focus is on foundational thinking around technology, systems design, and artificial intelligence. We believe in slow, careful research that prioritizes clarity and intellectual integrity over rapid scaling or market claims.</p>
+
+        <p>We operate with a non-profit mindset—our goal is to contribute meaningfully to human knowledge and capability, not to extract value. We are transparent about our limitations, uncertainties, and current phase of development.</p>
+
+        <p>If you are interested in collaborating, discussing research directions, or following our work, we would welcome conversation.</p>
+      </div>
+    </section>
+
+    <!-- Research Focus Section -->
+    <section id="research">
+      <h2>Research Focus</h2>
+      <div class="research-grid">
+        <div class="research-item">
+          <h3>AI & Systems Research</h3>
+          <p>We explore foundational questions about artificial intelligence, alignment, and systems behavior. Our approach emphasizes first-principles thinking, careful analysis of emergent behaviors, and long-term implications of technology development.</p>
+        </div>
+
+        <div class="research-item">
+          <h3>Software & Infrastructure</h3>
+          <p>We investigate how systems are built, how they scale, and how design decisions ripple through technical and social ecosystems. We focus on clarity, maintainability, and the relationship between code and consequence.</p>
+        </div>
+
+        <div class="research-item">
+          <h3>Long-Term Technology Strategy</h3>
+          <p>We think about what sustainable, responsible technology development looks like over decades. This includes questions of governance, safety, coordination, and how technology can support human flourishing rather than replace human agency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Get In Touch</h2>
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <p>We're interested in conversations with researchers, collaborators, and thoughtful people interested in these questions.</p>
+          <p>Reach out:</p>
+          <a href="mailto:help.nova.research@gmail.com" class="contact-email">help.nova.research@gmail.com</a>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+
+        <div class="disclaimer">
+          <strong>Disclaimer:</strong> NOVA Research Corp is currently not a registered legal entity. This initiative operates as an independent research project. Any inquiries are responded to in that context.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 NOVA Research Initiative. All work published under careful consideration of impact and responsibility.</p>
+  </footer>
+
+  <script>
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Scroll reveal animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // Initial check
+
+    // Form submission handling
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        // Construct mailto link
+        const subject = 'NOVA Research Inquiry';
+        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+        const mailtoLink = `mailto:help.nova.research@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        window.location.href = mailtoLink;
+      });
+    }
+
+    // Add reveal class to sections for animation
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.classList.add('reveal');
+      });
+    });
+  </script>
+</body>
 </html>
